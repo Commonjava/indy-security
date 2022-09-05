@@ -49,7 +49,7 @@ public class SecurityConstraintProvider
                 final File constraintFile = new File( config.securityBindingsYaml().get() );
                 if ( !constraintFile.exists() )
                 {
-                    logger.warn( "Cannot load keycloak security constraints: {}, will try to load from classpath.",
+                    logger.warn( "Cannot load security constraints: {}, will try to load from classpath.",
                                  constraintFile );
                 }
                 else
@@ -61,7 +61,7 @@ public class SecurityConstraintProvider
                     }
                     catch ( FileNotFoundException e )
                     {
-                        logger.warn( "Cannot load keycloak security constraints: {}, will try to load from classpath.",
+                        logger.warn( "Cannot load security constraints: {}, will try to load from classpath.",
                                      constraintFile );
                     }
                 }
@@ -77,7 +77,7 @@ public class SecurityConstraintProvider
 
             if ( input == null )
             {
-                logger.error( "Cannot load keycloak security constraints because missing " );
+                logger.error( "Cannot load security constraints because missing " );
                 return;
             }
 
@@ -87,13 +87,13 @@ public class SecurityConstraintProvider
             }
             catch ( IOException e )
             {
-                logger.error( "Cannot load keycloak security constraints due to error: {}", e.getMessage() );
+                logger.error( "Cannot load security constraints due to error: {}", e.getMessage() );
             }
 
         }
         else
         {
-            logger.info( "Keycloak is not enabled, so bypassed all keycloak configurations." );
+            logger.info( "indy security is not enabled, so bypassed all security configurations." );
         }
     }
 
