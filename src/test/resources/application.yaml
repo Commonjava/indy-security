@@ -1,0 +1,22 @@
+quarkus:
+  application:
+    name: indy-security-binding
+  http:
+    limits:
+      max-body-size: 500M
+    port: 8080
+    read-timeout: 30m
+  log:
+    console:
+      enable: true
+    file:
+      enable: false
+      level: INFO
+    level: INFO
+    min-level: TRACE
+  security:
+    auth:
+      enabled-in-dev-mode: false
+
+indy_security:
+  enabled: true
