@@ -33,14 +33,14 @@
   <inceptionYear>2022</inceptionYear>
 
   <scm>
-    <connection>scm:git:https://github.com/CommonJava/indy-security</connection>
-    <developerConnection>scm:git:https://github.com/CommonJava/indy-security</developerConnection>
-    <url>http://github.com/Commonjava/indy-security-binding</url>
+    <connection>scm:git:https://github.com/Commonjava/indy-security</connection>
+    <developerConnection>scm:git:https://github.com/Commonjava/indy-security</developerConnection>
+    <url>http://github.com/Commonjava/indy-security</url>
     <tag>HEAD</tag>
   </scm>
 
   <properties>
-    <projectEmail>https://github.com/Commonjava/indy-event-model</projectEmail>
+    <projectEmail>https://github.com/Commonjava/indy-security</projectEmail>
   </properties>
 
   <repositories>
