@@ -41,6 +41,8 @@
 
   <properties>
     <projectEmail>https://github.com/Commonjava/indy-security</projectEmail>
+    <skipTests>false</skipTests>
+    <plugin.jacoco.skip>false</plugin.jacoco.skip>
   </properties>
 
   <repositories>
