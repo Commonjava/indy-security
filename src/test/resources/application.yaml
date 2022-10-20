@@ -18,5 +18,5 @@ quarkus:
     auth:
       enabled-in-dev-mode: false
 
-indy_security:
+"indy_security":
   enabled: true
