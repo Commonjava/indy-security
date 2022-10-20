@@ -17,6 +17,8 @@ package org.commonjava.indy.service.security.jaxrs;
 
 import org.commonjava.indy.service.security.common.SecurityConfiguration;
 import org.commonjava.indy.service.security.common.SecurityManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Instance;
@@ -33,6 +35,8 @@ import javax.ws.rs.ext.Provider;
 public class SecurityInterceptor
         implements ContainerRequestFilter
 {
+    private final Logger logger = LoggerFactory.getLogger( this.getClass() );
+
     @Inject
     SecurityManager securityManager;
 
@@ -53,6 +57,7 @@ public class SecurityInterceptor
 
             if ( !securityManager.authorized( path, method ) )
             {
+                logger.warn( "The request is not authorized. Path: {}, Method: {}", path, method );
                 requestContext.abortWith( Response.status( Response.Status.FORBIDDEN ).build() );
             }
         }
