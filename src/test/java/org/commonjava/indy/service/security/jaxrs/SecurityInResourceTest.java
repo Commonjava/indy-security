@@ -16,7 +16,6 @@
 package org.commonjava.indy.service.security.jaxrs;
 
 import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.test.junit.TestProfile;
 import io.quarkus.test.security.TestSecurity;
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +26,7 @@ import static javax.ws.rs.core.Response.Status.NO_CONTENT;
 import static javax.ws.rs.core.Response.Status.OK;
 
 @QuarkusTest
-public class SecurityEnabledInResourceTest
+public class SecurityInResourceTest
 {
     @Test
     public void testPublic()
