@@ -61,7 +61,7 @@ public class SecurityManager
                     }
                     else
                     {
-                        logger.warn( "Role {} is not allowed to access path {} through method {}", roles, path,
+                        logger.debug( "Role {} is not allowed to access path {} through method {}", roles, path,
                                       httpMethod );
                         return false;
                     }
