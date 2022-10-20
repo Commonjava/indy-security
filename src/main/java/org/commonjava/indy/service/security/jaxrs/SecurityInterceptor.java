@@ -15,13 +15,11 @@
  */
 package org.commonjava.indy.service.security.jaxrs;
 
-import org.commonjava.indy.service.security.common.SecurityConfiguration;
 import org.commonjava.indy.service.security.common.SecurityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
@@ -29,6 +27,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.Provider;
+import java.io.IOException;
 
 @ApplicationScoped
 @Provider
@@ -43,23 +42,18 @@ public class SecurityInterceptor
     @Context
     UriInfo info;
 
-    @Inject
-    Instance<SecurityConfiguration> config;
-
     @Override
     public void filter( ContainerRequestContext requestContext )
+            throws IOException
     {
-        if ( config.get().enabled() )
+
+        final String path = info.getPath();
+
+        final String method = requestContext.getMethod();
+
+        if ( !securityManager.authorized( path, method ) )
         {
-            final String path = info.getPath();
-
-            final String method = requestContext.getMethod();
-
-            if ( !securityManager.authorized( path, method ) )
-            {
-                logger.warn( "The request is not authorized. Path: {}, Method: {}", path, method );
-                requestContext.abortWith( Response.status( Response.Status.FORBIDDEN ).build() );
-            }
+            requestContext.abortWith( Response.status( Response.Status.FORBIDDEN ).build() );
         }
     }
 }

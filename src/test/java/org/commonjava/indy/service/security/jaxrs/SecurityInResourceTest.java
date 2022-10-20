@@ -16,7 +16,6 @@
 package org.commonjava.indy.service.security.jaxrs;
 
 import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.test.junit.TestProfile;
 import io.quarkus.test.security.TestSecurity;
 import org.junit.jupiter.api.Test;
 
@@ -27,8 +26,7 @@ import static javax.ws.rs.core.Response.Status.NO_CONTENT;
 import static javax.ws.rs.core.Response.Status.OK;
 
 @QuarkusTest
-@TestProfile( SecurityDisabledProfile.class )
-public class SecurityDisabledInResourceTest
+public class SecurityInResourceTest
 {
     @Test
     public void testPublic()
@@ -37,7 +35,25 @@ public class SecurityDisabledInResourceTest
     }
 
     @Test
-    public void testWriteAdmin()
+    public void testWriteAdminWithoutAuth()
+    {
+        given().when().put( "/api/admin/resource" ).then().statusCode( FORBIDDEN.getStatusCode() );
+        given().when().post( "/api/admin/resource" ).then().statusCode( FORBIDDEN.getStatusCode() );
+        given().when().delete( "/api/admin/resource" ).then().statusCode( FORBIDDEN.getStatusCode() );
+    }
+
+    @Test
+    @TestSecurity( roles = "user", user = "user" )
+    public void testWriteAdminWithWrongRole()
+    {
+        given().when().put( "/api/admin/resource" ).then().statusCode( FORBIDDEN.getStatusCode() );
+        given().when().post( "/api/admin/resource" ).then().statusCode( FORBIDDEN.getStatusCode() );
+        given().when().delete( "/api/admin/resource" ).then().statusCode( FORBIDDEN.getStatusCode() );
+    }
+
+    @Test
+    @TestSecurity( roles = "admin", user = "admin" )
+    public void testWriteAdminWithAuth()
     {
         given().when().put( "/api/admin/resource" ).then().statusCode( CREATED.getStatusCode() );
         given().when().post( "/api/admin/resource" ).then().statusCode( CREATED.getStatusCode() );
@@ -51,7 +67,17 @@ public class SecurityDisabledInResourceTest
     }
 
     @Test
-    public void testWriteStore()
+    @TestSecurity( roles = "admin", user = "admin" )
+    public void testWriteStoreWithWrongRole()
+    {
+        given().when().put( "/api/admin/stores/testtype/test" ).then().statusCode( FORBIDDEN.getStatusCode() );
+        given().when().post( "/api/admin/stores/testtype/test" ).then().statusCode( FORBIDDEN.getStatusCode() );
+        given().when().delete( "/api/admin/stores/testtype/test" ).then().statusCode( FORBIDDEN.getStatusCode() );
+    }
+
+    @Test
+    @TestSecurity( roles = "power-user", user = "pouser" )
+    public void testWriteStoreWithAuth()
     {
         given().when().put( "/api/admin/stores/testtype/test" ).then().statusCode( CREATED.getStatusCode() );
         given().when().post( "/api/admin/stores/testtype/test" ).then().statusCode( CREATED.getStatusCode() );

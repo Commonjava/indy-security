@@ -20,8 +20,7 @@ import io.quarkus.test.junit.QuarkusTestProfile;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SecurityDisabledProfile
-        implements QuarkusTestProfile
+public class SecurityDisabledProfile implements QuarkusTestProfile
 {
     @Override
     public Map<String, String> getConfigOverrides()
@@ -30,5 +29,4 @@ public class SecurityDisabledProfile
         configs.put( "indy_security.enabled", "false" );
         return configs;
     }
-
 }
