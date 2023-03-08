@@ -18,6 +18,7 @@ package org.commonjava.indy.service.security.common;
 import java.util.Arrays;
 import java.util.List;
 
+@SuppressWarnings( "unused" )
 public class SecurityConstraint
 {
 
