@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.stream.Collectors;
 
+@SuppressWarnings( "unused" )
 @ApplicationScoped
 public class SecurityConstraintProvider
 {

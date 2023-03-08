@@ -49,7 +49,7 @@ public class SecurityManager
             {
                 final boolean pathMatched = path.matches( constraint.getUrlPattern() );
                 final boolean methodMatched = constraint.getMethods().contains( httpMethod );
-                logger.debug( "path: {}, constraint url pattern: {}, path match: {}, method: {}, method match {}", path,
+                logger.debug( "path: {}, constraint url pattern: {}, path match: {}, method: {}, method match: {}", path,
                               constraint.getUrlPattern(), pathMatched, httpMethod, methodMatched );
                 if ( pathMatched && methodMatched )
                 {
@@ -73,6 +73,7 @@ public class SecurityManager
         return true;
     }
 
+    @SuppressWarnings( "unused" )
     public String getUser( HttpRequest request )
     {
         if ( !config.enabled() )
