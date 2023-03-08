@@ -60,28 +60,32 @@ public class SecurityConstraintProvider
         if ( config.enabled() )
         {
             InputStream input = null;
+
+            final String defaultLocation = "config/" + DEFAULT_SECURITY_BINDING_YAML;
+            String loc = defaultLocation;
             if ( config.securityBindingsYaml().isPresent() )
             {
-                final File constraintFile = new File( config.securityBindingsYaml().get() );
-                if ( !constraintFile.exists() )
+                loc = config.securityBindingsYaml().get();
+            }
+
+            final File constraintFile = new File( loc );
+            if ( !constraintFile.isFile() )
+            {
+                logger.warn( "Cannot load security constraints: {}, will try to load from classpath.",
+                             constraintFile );
+            }
+            else
+            {
+                logger.info( "Will parse security bindings from: {}.", constraintFile );
+                try
+                {
+                    input = new FileInputStream( constraintFile );
+                }
+                catch ( FileNotFoundException e )
                 {
                     logger.warn( "Cannot load security constraints: {}, will try to load from classpath.",
                                  constraintFile );
                 }
-                else
-                {
-                    logger.info( "Will parse security bindings from: {}.", constraintFile );
-                    try
-                    {
-                        input = new FileInputStream( constraintFile );
-                    }
-                    catch ( FileNotFoundException e )
-                    {
-                        logger.warn( "Cannot load security constraints: {}, will try to load from classpath.",
-                                     constraintFile );
-                    }
-                }
-
             }
 
             if ( input == null )
