@@ -61,8 +61,7 @@ public class SecurityConstraintProvider
         {
             InputStream input = null;
 
-            final String defaultLocation = "config/" + DEFAULT_SECURITY_BINDING_YAML;
-            String loc = defaultLocation;
+            String loc = "config/" + DEFAULT_SECURITY_BINDING_YAML;
             if ( config.securityBindingsYaml().isPresent() )
             {
                 loc = config.securityBindingsYaml().get();
