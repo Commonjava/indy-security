@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.security.Principal;
+import java.util.Collections;
 import java.util.Set;
 
 @ApplicationScoped
@@ -36,21 +37,30 @@ public class SecurityManager
     @Inject
     SecurityIdentity identity;
 
+//    @Inject
+//    @IdToken
+//    JsonWebToken idToken;
+
     @Inject
     SecurityBindings bindings;
 
     public boolean authorized( final String path, final String httpMethod )
     {
-        Set<String> roles = identity.getRoles();
-        logger.debug( "Roles {}", roles );
         if ( config.enabled() && bindings != null )
         {
+            Set<String> roles = getRoles();
+            Principal user = identity.getPrincipal();
+            if ( user != null )
+            {
+                logger.debug( "User: {}", user.getName() );
+            }
+            logger.debug( "Roles {}", roles );
             for ( SecurityConstraint constraint : bindings.getConstraints() )
             {
                 final boolean pathMatched = path.matches( constraint.getUrlPattern() );
                 final boolean methodMatched = constraint.getMethods().contains( httpMethod );
-                logger.debug( "path: {}, constraint url pattern: {}, path match: {}, method: {}, method match: {}", path,
-                              constraint.getUrlPattern(), pathMatched, httpMethod, methodMatched );
+                logger.debug( "path: {}, constraint url pattern: {}, path match: {}, method: {}, method match: {}",
+                              path, constraint.getUrlPattern(), pathMatched, httpMethod, methodMatched );
                 if ( pathMatched && methodMatched )
                 {
                     if ( roles != null && !roles.isEmpty() && roles.contains( constraint.getRole() ) )
@@ -62,7 +72,7 @@ public class SecurityManager
                     else
                     {
                         logger.warn( "Role {} is not allowed to access path {} through method {}", roles, path,
-                                      httpMethod );
+                                     httpMethod );
                         return false;
                     }
                 }
@@ -73,15 +83,16 @@ public class SecurityManager
         return true;
     }
 
+    public Set<String> getRoles()
+    {
+        Set<String> roles = identity.getRoles();
+        return ( roles != null && !roles.isEmpty() ) ? roles : Collections.emptySet();
+    }
+
     @SuppressWarnings( "unused" )
     public String getUser( HttpRequest request )
     {
-        if ( !config.enabled() )
-        {
-            return request.getRemoteHost();
-        }
-
-        if ( identity == null )
+        if ( !config.enabled() || identity == null )
         {
             return request.getRemoteHost();
         }
