@@ -14,9 +14,6 @@ quarkus:
       level: INFO
     level: INFO
     min-level: TRACE
-  oidc:
-    enabled: true
-    auth-server-url: http://localhost
   devservices:
     enabled: false
   security:

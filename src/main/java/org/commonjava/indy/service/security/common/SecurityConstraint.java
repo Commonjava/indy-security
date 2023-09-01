@@ -22,23 +22,23 @@ import java.util.List;
 public class SecurityConstraint
 {
 
-    private String role;
-
     private String urlPattern;
+
+    private List<String> roles;
 
     private List<String> methods;
 
-    public SecurityConstraint( String role, String urlPattern, List<String> methods )
+    public SecurityConstraint( String urlPattern, List<String> roles, List<String> methods )
     {
         super();
-        this.role = role;
         this.urlPattern = urlPattern;
+        this.roles = roles;
         this.methods = methods;
     }
 
-    public SecurityConstraint( String role, String urlPattern, String[] methods )
+    public SecurityConstraint( String urlPattern, String[] roles, String[] methods )
     {
-        this( role, urlPattern, Arrays.asList( methods ) );
+        this( urlPattern, Arrays.asList( roles ), Arrays.asList( methods ) );
     }
 
     public SecurityConstraint()
@@ -46,14 +46,14 @@ public class SecurityConstraint
         // keep default constructor
     }
 
-    public String getRole()
+    public List<String> getRoles()
     {
-        return role;
+        return roles;
     }
 
-    public void setRole( String role )
+    public void setRole( List<String> roles )
     {
-        this.role = role;
+        this.roles = roles;
     }
 
     public String getUrlPattern()
@@ -79,7 +79,7 @@ public class SecurityConstraint
     @Override
     public String toString()
     {
-        return "SecurityConstraint [role=" + role + ", urlPattern=" + urlPattern + ", methods=" + methods + "]";
+        return "SecurityConstraint [role=" + roles + ", urlPattern=" + urlPattern + ", methods=" + methods + "]";
     }
 
 }
