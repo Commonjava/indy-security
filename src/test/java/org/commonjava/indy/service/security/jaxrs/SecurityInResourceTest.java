@@ -71,7 +71,7 @@ public class SecurityInResourceTest
     public void testWriteStoreWithAuth1()
     {
         given().when().put( "/api/admin/stores/testtype/test" ).then().statusCode( CREATED.getStatusCode() );
-        given().when().post( "/api/admin/stores/testtype/test" ).then().statusCode( CREATED.getStatusCode());
+        given().when().post( "/api/admin/stores/testtype/test" ).then().statusCode( CREATED.getStatusCode() );
         given().when().delete( "/api/admin/stores/testtype/test" ).then().statusCode( NO_CONTENT.getStatusCode() );
     }
 
@@ -89,7 +89,16 @@ public class SecurityInResourceTest
     public void testWriteStoreWithWrongRole()
     {
         given().when().put( "/api/admin/stores/testtype/test" ).then().statusCode( FORBIDDEN.getStatusCode() );
-        given().when().post( "/api/admin/stores/testtype/test" ).then().statusCode( FORBIDDEN.getStatusCode());
+        given().when().post( "/api/admin/stores/testtype/test" ).then().statusCode( FORBIDDEN.getStatusCode() );
         given().when().delete( "/api/admin/stores/testtype/test" ).then().statusCode( FORBIDDEN.getStatusCode() );
+    }
+
+    @Test
+    @TestSecurity( roles = { "user", "power-user" }, user = "suser" )
+    public void testWriteStoreWithMoreRoles()
+    {
+        given().when().put( "/api/admin/stores/testtype/test" ).then().statusCode( CREATED.getStatusCode() );
+        given().when().post( "/api/admin/stores/testtype/test" ).then().statusCode( CREATED.getStatusCode() );
+        given().when().delete( "/api/admin/stores/testtype/test" ).then().statusCode( NO_CONTENT.getStatusCode() );
     }
 }
