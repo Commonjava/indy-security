@@ -37,10 +37,6 @@ public class SecurityManager
     @Inject
     SecurityIdentity identity;
 
-//    @Inject
-//    @IdToken
-//    JsonWebToken idToken;
-
     @Inject
     SecurityBindings bindings;
 
@@ -63,18 +59,19 @@ public class SecurityManager
                               path, constraint.getUrlPattern(), pathMatched, httpMethod, methodMatched );
                 if ( pathMatched && methodMatched )
                 {
-                    if ( roles != null && !roles.isEmpty() && roles.contains( constraint.getRole() ) )
+                    for ( String role : constraint.getRoles() )
                     {
-                        logger.debug( "Role {} is allowed to access path {} through method {}", roles, path,
-                                      httpMethod );
-                        return true;
+                        if ( roles != null && !roles.isEmpty() && roles.contains( role ) )
+                        {
+                            logger.debug( "Role {} is allowed to access path {} through method {}", roles, path,
+                                          httpMethod );
+                            return true;
+                        }
                     }
-                    else
-                    {
-                        logger.warn( "Role {} is not allowed to access path {} through method {}", roles, path,
-                                     httpMethod );
-                        return false;
-                    }
+                    logger.warn( "Role {} is not allowed to access path {} through method {}", roles, path,
+                                 httpMethod );
+                    return false;
+
                 }
             }
         }

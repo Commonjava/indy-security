@@ -68,6 +68,24 @@ public class SecurityInResourceTest
 
     @Test
     @TestSecurity( roles = "admin", user = "admin" )
+    public void testWriteStoreWithAuth1()
+    {
+        given().when().put( "/api/admin/stores/testtype/test" ).then().statusCode( CREATED.getStatusCode() );
+        given().when().post( "/api/admin/stores/testtype/test" ).then().statusCode( CREATED.getStatusCode() );
+        given().when().delete( "/api/admin/stores/testtype/test" ).then().statusCode( NO_CONTENT.getStatusCode() );
+    }
+
+    @Test
+    @TestSecurity( roles = "power-user", user = "pouser" )
+    public void testWriteStoreWithAuth2()
+    {
+        given().when().put( "/api/admin/stores/testtype/test" ).then().statusCode( CREATED.getStatusCode() );
+        given().when().post( "/api/admin/stores/testtype/test" ).then().statusCode( CREATED.getStatusCode() );
+        given().when().delete( "/api/admin/stores/testtype/test" ).then().statusCode( NO_CONTENT.getStatusCode() );
+    }
+
+    @Test
+    @TestSecurity( roles = "user", user = "user" )
     public void testWriteStoreWithWrongRole()
     {
         given().when().put( "/api/admin/stores/testtype/test" ).then().statusCode( FORBIDDEN.getStatusCode() );
@@ -76,8 +94,8 @@ public class SecurityInResourceTest
     }
 
     @Test
-    @TestSecurity( roles = "power-user", user = "pouser" )
-    public void testWriteStoreWithAuth()
+    @TestSecurity( roles = { "user", "power-user" }, user = "suser" )
+    public void testWriteStoreWithMoreRoles()
     {
         given().when().put( "/api/admin/stores/testtype/test" ).then().statusCode( CREATED.getStatusCode() );
         given().when().post( "/api/admin/stores/testtype/test" ).then().statusCode( CREATED.getStatusCode() );
