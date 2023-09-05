@@ -15,17 +15,24 @@
  */
 package org.commonjava.indy.service.security.common;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import java.util.Arrays;
 import java.util.List;
 
+@JsonDeserialize( using = SecurityConstraintDeSerializer.class )
 @SuppressWarnings( "unused" )
 public class SecurityConstraint
 {
 
+    @JsonProperty( "urlPattern" )
     private String urlPattern;
 
+    @JsonProperty( "roles" )
     private List<String> roles;
 
+    @JsonProperty( "methods" )
     private List<String> methods;
 
     public SecurityConstraint( String urlPattern, List<String> roles, List<String> methods )

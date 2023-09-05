@@ -1,0 +1,22 @@
+constraints:
+  - urlPattern: "/api/admin/.*"
+    roles: admin
+    methods:
+      - POST
+      - PUT
+      - DELETE
+  - urlPattern: "/api/.*"
+    roles: user
+    methods:
+      - POST
+      - PUT
+      - DELETE
+  - urlPattern: "/api/admin/stores/.*"
+    roles:
+      - power-user
+      - admin
+    methods:
+      - POST
+      - PUT
+      - DELETE
+
