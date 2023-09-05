@@ -70,8 +70,7 @@ public class SecurityConstraintProvider
             final File constraintFile = new File( loc );
             if ( !constraintFile.isFile() )
             {
-                logger.warn( "Cannot load security constraints: {}, will try to load from classpath.",
-                             constraintFile );
+                logger.warn( "Cannot load security constraints: {}, will try to load from classpath.", constraintFile );
             }
             else
             {
@@ -119,8 +118,7 @@ public class SecurityConstraintProvider
     private void parseBindings( InputStream input )
             throws IOException
     {
-        final ObjectMapper mapper = new ObjectMapper( new YAMLFactory() );
-        mapper.findAndRegisterModules();
+        final ObjectMapper mapper = new ObjectMapper( new YAMLFactory() ).findAndRegisterModules();
         constraintSet = mapper.readValue( input, SecurityBindings.class );
         if ( constraintSet != null )
         {
