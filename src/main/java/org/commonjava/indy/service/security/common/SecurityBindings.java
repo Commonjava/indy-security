@@ -15,8 +15,8 @@
  */
 package org.commonjava.indy.service.security.common;
 
-import javax.enterprise.inject.Alternative;
-import javax.inject.Named;
+import jakarta.enterprise.inject.Alternative;
+import jakarta.inject.Named;
 import java.util.List;
 
 @Alternative
