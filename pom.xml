@@ -21,10 +21,10 @@
 
   <parent>
     <groupId>org.commonjava</groupId>
-    <artifactId>service-parent</artifactId>
-    <version>5-SNAPSHOT</version>
+    <artifactId>commonjava</artifactId>
+    <version>19-SNAPSHOT</version>
   </parent>
-  
+
   <groupId>org.commonjava.indy.service</groupId>
   <artifactId>indy-security</artifactId>
   <version>1.2-SNAPSHOT</version>
@@ -42,7 +42,9 @@
   <properties>
     <projectEmail>https://github.com/Commonjava/indy-security</projectEmail>
     <skipTests>false</skipTests>
+    <javaVersion>11</javaVersion>
     <plugin.jacoco.skip>false</plugin.jacoco.skip>
+    <quarkus.version>3.6.9</quarkus.version>
   </properties>
 
   <repositories>
@@ -54,6 +56,18 @@
       </snapshots>
     </repository>
   </repositories>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.quarkus.platform</groupId>
+        <artifactId>quarkus-bom</artifactId>
+        <version>${quarkus.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <dependencies>
     <dependency>
@@ -109,6 +123,7 @@
       <plugin>
         <groupId>io.quarkus.platform</groupId>
         <artifactId>quarkus-maven-plugin</artifactId>
+        <version>${quarkus.version}</version>
       </plugin>
     </plugins>
   </build>
