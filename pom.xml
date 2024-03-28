@@ -27,7 +27,7 @@
 
   <groupId>org.commonjava.indy.service</groupId>
   <artifactId>indy-security</artifactId>
-  <version>1.2-SNAPSHOT</version>
+  <version>1.2</version>
   
   <name>Indy :: Library :: Security</name>
   <inceptionYear>2022</inceptionYear>
@@ -36,7 +36,7 @@
     <connection>scm:git:https://github.com/Commonjava/indy-security</connection>
     <developerConnection>scm:git:https://github.com/Commonjava/indy-security</developerConnection>
     <url>http://github.com/Commonjava/indy-security</url>
-    <tag>HEAD</tag>
+    <tag>indy-security-1.2</tag>
   </scm>
 
   <properties>
