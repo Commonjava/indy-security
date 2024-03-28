@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.commonjava</groupId>
     <artifactId>commonjava</artifactId>
-    <version>19-SNAPSHOT</version>
+    <version>19</version>
   </parent>
 
   <groupId>org.commonjava.indy.service</groupId>
