@@ -19,7 +19,11 @@
 
 name: Merge / Push Build
 
-on: [push]
+on:
+  push:
+    branches:
+      - 'main'
+      - '1.1.x'
 
 jobs:
   publish-snapshot:
@@ -31,19 +35,17 @@ jobs:
       packages: write
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v6
 
     - name: Set up JDK
-      uses: actions/setup-java@v2
+      uses: actions/setup-java@v5
       with:
-        java-version: '11'
-        distribution: 'adopt'
-        # server-id: sonatype
-        # server-username: SONATYPE_BOT_USERNAME
-        # server-password: SONATYPE_BOT_TOKEN
+        distribution: 'temurin'
+        architecture: x64
+        java-version: 17
 
     - name: maven-settings-xml-action
-      uses: whelk-io/maven-settings-xml-action@v14
+      uses: whelk-io/maven-settings-xml-action@v22
       if: ${{ github.event.repository.fork == false }}
       with:
         repositories: '[{ "id": "sonatype", "url": "https://oss.sonatype.org/content/repositories/snapshots/", "releases": {"enabled": "false"}, "snapshots": {"enabled": "true" }}]'
