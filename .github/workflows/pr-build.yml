@@ -19,7 +19,12 @@
 
 name: PR Build
 
-on: [pull_request]
+on:
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'pom.xml'
+      - '.github/workflow/pr-build.yml'
 
 jobs:
   build:
