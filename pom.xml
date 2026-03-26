@@ -44,7 +44,7 @@
     <skipTests>false</skipTests>
     <javaVersion>11</javaVersion>
     <plugin.jacoco.skip>false</plugin.jacoco.skip>
-    <quarkus.version>3.6.9</quarkus.version>
+    <quarkus.version>3.34.1</quarkus.version>
   </properties>
 
   <repositories>
